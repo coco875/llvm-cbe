@@ -72,6 +72,10 @@ jobs:
         run: |
           gcc --version
           pytest -n 16
+      - uses: actions/upload-artifact@v4
+        with:
+          name: llvm-cbe-${{ matrix.os }}-build
+          path: build/tools/llvm-cbe/llvm-cbe
 
   # The llvm-dev package doesn't exist for Windows, so we need to build LLVM ourselves.
   build-windows:
@@ -115,6 +119,11 @@ jobs:
           if (!(Test-Path '${{ github.workspace }}\build\')) { mkdir '${{ github.workspace }}\build' }
           cmake -S llvm -B build -G Ninja -DLLVM_INCLUDE_TESTS=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
           cmake --build build
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: llvm-cbe-windows-build
+          path: build/tools/llvm-cbe/llvm-cbe.exe
 
       - name: Test
         shell: pwsh
