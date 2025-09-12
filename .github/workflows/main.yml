@@ -24,8 +24,17 @@ jobs:
           - os: macos-latest
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Checkout LLVM
+        id: checkout-llvm
+        uses: actions/checkout@master
+        with:
+          repository: llvm/llvm-project
+          ref: llvmorg-19.1.7
+
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          path: ${{ github.workspace }}/llvm/projects/llvm-cbe
 
       - name: Setup LLVM (Linux)
         if: ${{ runner.os == 'Linux' }}
@@ -65,7 +74,7 @@ jobs:
       - name: Build
         run: |
           mkdir build
-          cmake -S . -B build -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=On -DLLVM_DIR=/usr/lib/llvm-19/cmake
+          cmake -S llvm -B build -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
           cmake --build build
 
       - name: Test
@@ -88,7 +97,7 @@ jobs:
         uses: actions/checkout@master
         with:
           repository: llvm/llvm-project
-          ref: llvmorg-19.1.1
+          ref: llvmorg-19.1.7
 
       - name: Checkout
         uses: actions/checkout@v5
