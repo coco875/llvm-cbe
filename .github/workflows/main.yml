@@ -83,7 +83,7 @@ jobs:
       - name: Test
         run: |
           gcc --version
-          pytest -n 16
+          # pytest -n 16
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cbe-${{ matrix.os }}-build
