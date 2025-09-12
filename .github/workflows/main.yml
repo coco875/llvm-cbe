@@ -123,7 +123,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cbe-windows-build
-          path: build/tools/llvm-cbe/llvm-cbe.exe
+          path: build/bin/llvm-cbe.exe
 
       - name: Test
         shell: pwsh
