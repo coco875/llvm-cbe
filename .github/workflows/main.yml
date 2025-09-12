@@ -57,6 +57,9 @@ jobs:
           cd /usr/local/bin
           ln -s `which gcc-14` gcc
 
+      - name: Initialize LLVM build cache
+        uses: mozilla-actions/sccache-action@v0.0.9
+
       - name: Update Python
         uses: actions/setup-python@v5
         with:
@@ -69,7 +72,7 @@ jobs:
 
       - name: Check formatting
         if: ${{ runner.os == 'Linux' }}
-        run: find . -iname '*.h' -o -iname '*.cpp' | xargs clang-format -Werror --dry-run --style=LLVM --verbose
+        run: find ${{ github.workspace }}/llvm/projects/llvm-cbe -iname '*.h' -o -iname '*.cpp' | xargs clang-format -Werror --dry-run --style=LLVM --verbose
 
       - name: Build
         run: |
