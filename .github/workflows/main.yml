@@ -50,12 +50,12 @@ jobs:
       - name: Setup LLVM and GCC (MacOS)
         if: ${{ runner.os == 'macOS' }}
         run: |
-          brew install llvm@19 gcc@14
-          echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
-          echo "CC=$(brew --prefix llvm@19)/bin/clang" >> $GITHUB_ENV
-          echo "CXX=$(brew --prefix llvm@19)/bin/clang++" >> $GITHUB_ENV
-          cd /usr/local/bin
-          ln -s `which gcc-14` gcc
+          # brew install llvm@19 gcc@14
+          # echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
+          # echo "CC=$(brew --prefix llvm@19)/bin/clang" >> $GITHUB_ENV
+          # echo "CXX=$(brew --prefix llvm@19)/bin/clang++" >> $GITHUB_ENV
+          # cd /usr/local/bin
+          # ln -s `which gcc-14` gcc
 
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
