@@ -81,7 +81,7 @@ jobs:
       - name: Build
         run: |
           mkdir build
-          cmake -S llvm -B build -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake -S llvm -B build -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=On -DLLVM_ENABLE_ZSTD:BOOL=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           cmake --build build
 
       - name: Test
@@ -135,7 +135,7 @@ jobs:
           Enter-VsDevShell -VsInstallPath $visualStudioInstallationPath -DevCmdArguments '-arch=x64 -host_arch=x64'
           cd ${{ github.workspace }}
           if (!(Test-Path '${{ github.workspace }}\build\')) { mkdir '${{ github.workspace }}\build' }
-          cmake -S llvm -B build -G Ninja -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=On -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake -S llvm -B build -G Ninja -DBUILD_SHARED_LIBS=OFF -DLLVM_INCLUDE_TESTS=On -DLLVM_ENABLE_ZSTD:BOOL=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           cmake --build build
       
       - uses: actions/upload-artifact@v4
