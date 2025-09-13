@@ -87,7 +87,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: llvm-cbe-${{ matrix.os }}-build
-          path: build/tools/llvm-cbe/llvm-cbe
+          path: build/bin/llvm-cbe
 
   # The llvm-dev package doesn't exist for Windows, so we need to build LLVM ourselves.
   build-windows:
